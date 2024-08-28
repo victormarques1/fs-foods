@@ -53,7 +53,7 @@
     @apply box-border;
   }
 
-  body {
+  /* body {
     @apply bg-[#F4F4F5] text-foreground antialiased;
-  }
+  } */
 }
