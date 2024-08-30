@@ -42,7 +42,7 @@ const Header = () => {
       </div>
 
       <Sheet>
-        <SheetTrigger>
+        <SheetTrigger asChild>
           <Button
             size="icon"
             variant="outline"
@@ -81,12 +81,14 @@ const Header = () => {
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-between pt-10">
-              <h2 className="font-semibold">Olá. Faça seu login!</h2>
-              <Button size="icon" onClick={handleSignInClick}>
-                <LogInIcon size={20} />
-              </Button>
-            </div>
+            <>
+              <div className="flex items-center justify-between pt-10">
+                <h2 className="font-semibold">Olá. Faça seu login!</h2>
+                <Button size="icon" onClick={handleSignInClick}>
+                  <LogInIcon />
+                </Button>
+              </div>
+            </>
           )}
 
           <div className="py-6">
@@ -97,12 +99,9 @@ const Header = () => {
             <Button
               variant="ghost"
               className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
-              asChild
             >
-              <Link href="/">
-                <HomeIcon size={16} />
-                <span className="block">Início</span>
-              </Link>
+              <HomeIcon size={16} />
+              <span className="block">Início</span>
             </Button>
 
             {data?.user && (
@@ -138,9 +137,9 @@ const Header = () => {
 
           {data?.user && (
             <Button
-              onClick={handleSignOutClick}
               variant="ghost"
               className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+              onClick={handleSignOutClick}
             >
               <LogOutIcon size={16} />
               <span className="block">Sair da conta</span>
