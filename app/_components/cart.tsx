@@ -1,5 +1,3 @@
-"use client";
-
 import { useContext, useState } from "react";
 import { CartContext } from "../_context/cart";
 import CartItem from "./cart-item";
@@ -21,18 +19,29 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./ui/alert-dialog";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const Cart = () => {
+interface CartProps {
+  // eslint-disable-next-line no-unused-vars
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const Cart = ({ setIsOpen }: CartProps) => {
+  const router = useRouter();
+
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   const { data } = useSession();
+
   const { products, subtotalPrice, totalPrice, totalDiscounts, clearCart } =
     useContext(CartContext);
 
   const handleFinishOrderClick = async () => {
     if (!data?.user) return;
-    const restaurant = products?.[0].restaurant;
+
+    const restaurant = products[0].restaurant;
 
     try {
       setIsSubmitLoading(true);
@@ -61,8 +70,17 @@ const Cart = () => {
       });
 
       clearCart();
+      setIsOpen(false);
+
+      toast("Pedido finalizado com sucesso!", {
+        description: "Você pode acompanhá-lo na tela dos seus pedidos.",
+        action: {
+          label: "Meus Pedidos",
+          onClick: () => router.push("/my-orders"),
+        },
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsSubmitLoading(false);
     }
@@ -78,6 +96,7 @@ const Cart = () => {
                 <CartItem key={product.id} cartProduct={product} />
               ))}
             </div>
+
             {/* TOTAIS */}
             <div className="mt-6">
               <Card>
