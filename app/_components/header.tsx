@@ -5,7 +5,6 @@ import { Button } from "./ui/button";
 import {
   HeartIcon,
   HomeIcon,
-  ListOrderedIcon,
   LogInIcon,
   LogOutIcon,
   MenuIcon,
@@ -24,7 +23,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Separator } from "./ui/separator";
 
 const Header = () => {
-  const { data, status } = useSession();
+  const { data } = useSession();
 
   const handleSignOutClick = () => signOut();
   const handleSignInClick = () => signIn();
@@ -108,9 +107,12 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+                  asChild
                 >
-                  <ScrollTextIcon size={16} />
-                  <span className="block">Meus Pedidos</span>
+                  <Link href="/my-orders">
+                    <ScrollTextIcon size={16} />
+                    <span className="block">Meus Pedidos</span>
+                  </Link>
                 </Button>
 
                 <Button
