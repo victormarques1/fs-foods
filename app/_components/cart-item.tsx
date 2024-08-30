@@ -3,7 +3,7 @@ import { CartContext, CartProduct } from "../_context/cart";
 import { calculateProductTotalPrice, formatCurrency } from "../_helpers/price";
 import { Button } from "./ui/button";
 import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
-import { useContext } from "react";
+import { memo, useContext } from "react";
 
 interface CartItemProps {
   cartProduct: CartProduct;
@@ -15,6 +15,8 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
     increaseProductQuantity,
     removeProductFromCart,
   } = useContext(CartContext);
+
+  console.log("CartItem");
 
   const handleDecreaseQuantityClick = () =>
     decreaseProductQuantity(cartProduct.id);
@@ -68,7 +70,7 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
                 onClick={handleDecreaseQuantityClick}
               />
             </Button>
-            <span className="block w-8 text-xs">{cartProduct.quantity}</span>
+            <p className="block w-8 text-xs">{cartProduct.quantity}</p>
             <Button
               size="icon"
               className="h-7 w-7"
@@ -93,4 +95,6 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
   );
 };
 
-export default CartItem;
+export default memo(CartItem, (prev, next) => {
+  return prev.cartProduct.quantity === next.cartProduct.quantity;
+});
