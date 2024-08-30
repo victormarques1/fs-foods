@@ -56,17 +56,17 @@ const ProductDetails = ({
   const { addProductToCart, products } = useContext(CartContext);
 
   const addToCart = ({ emptyCart }: { emptyCart?: boolean }) => {
-    addProductToCart({ product, quantity, emptyCart });
+    addProductToCart({ product: { ...product, quantity }, emptyCart });
     setIsCartOpen(true);
   };
 
   const handleAddToCartClick = () => {
-    //VERIFICAR SE HÁ ALGUM PRODUTO DE OUTRO REST. NO CARRINHO
+    // VERIFICAR SE HÁ ALGUM PRODUTO DE OUTRO RESTAURANTE NO CARRINHO
     const hasDifferentRestaurantProduct = products.some(
       (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
     );
 
-    // SE HOUVER ABRIR UM AVISO
+    // SE HOUVER, ABRIR UM AVISO
     if (hasDifferentRestaurantProduct) {
       return setIsConfirmationDialogOpen(true);
     }
@@ -95,6 +95,7 @@ const ProductDetails = ({
               src={product.restaurant.imageUrl}
               alt={product.restaurant.name}
               fill
+              sizes="100%"
               className="rounded-full object-cover"
             />
           </div>

@@ -1,4 +1,4 @@
-import { Restaurant } from "@prisma/client";
+import { Restaurant, UserFavoriteRestaurant } from "@prisma/client";
 import { BikeIcon, HeartIcon, StarIcon, TimerIcon } from "lucide-react";
 import Image from "next/image";
 import { formatCurrency } from "../_helpers/price";
@@ -9,6 +9,7 @@ import { cn } from "../_lib/utils";
 interface RestaurantItemProps {
   restaurant: Restaurant;
   className?: string;
+  userFavoriteRestaurants: UserFavoriteRestaurant[];
 }
 
 const RestaurantItem = ({ restaurant, className }: RestaurantItemProps) => {
